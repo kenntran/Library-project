@@ -35,7 +35,7 @@ Role of Librarian and Student:
 		- The Library project does not have full functions of a Library.
 		- The Library project does not have serialization function - it has to be reinitialize every time executing.
 		- The Library project does not have deserialization function - it would not save the changing for next time executing.
-		- The Library project does not use many STL library as expected. 
+		- The Library project does not use many STL libraries as expected. 
 		- The Library project still need to be improved with C++ technique.  
 		- The Library project uses mostly C programming techniques.
 		
