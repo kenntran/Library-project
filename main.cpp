@@ -5,7 +5,7 @@
  *  Firstly, call initialization functions to initialize LibraryUser and LibraryBook. (due to lack of Serialization and Deserialization).
  *  Secondly, main() function shall call login for checking UserName and Password, then switching roles.
  *  Finally, main() shall execute in infinite while loop.
- *  Create: Nhut Tran
+ *  Author: Nhut Tran
  *  25/12/2017
  */
 
