@@ -4,7 +4,7 @@ Free-time project
 25/12/2017
 
 ## Description
-	- This Library project is to simuate basic functions of a library
+	- This Library project is to simulate basic functions of a library
 	- To manage library for Librarian
 	- To be used by Student
 	- Using C++ and Object-Oriented Programming to build this project
