@@ -41,8 +41,8 @@ Role of Librarian and Student:
 		
 ## Demo:
 	- For demo purpose:
-		- Librarian could be login by using UserName: librarian - Password: 123
-		- Student could be login by using different UserName and Password:
+		- Librarian could login by using UserName: librarian - Password: 123
+		- Student could login by using different UserName and Password:
 			- ID: keith998	-	Password: 123
 			- ID: fred772	-	Password: 123
 			- ID: timo007	- 	Password: 123
