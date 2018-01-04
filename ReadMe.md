@@ -49,7 +49,7 @@ Role of Librarian and Student:
 			- ID: timo007	- 	Password: 123
 			- ID: abbott119	-	Password: 123
 			
-## Error when opening executed file:
+## Error while opening executed file:
 	- If you get the error about "the procedure entry point __gxx_personality_v0 could not be located...". You should:
 		- Go to your MinGW folder (should be C:\MinGW)
 		- Open the bin folder.
