@@ -27,6 +27,20 @@ string Book::GetBookAuthor() const
     return string(Author);
 }
 
+string Book::GetBookISBN() const
+{
+    return string(ISBN);
+}
+
+unsigned int Book::GetBookNumber() const
+{
+    return Number;
+}
+
+unsigned int Book::GetBookBorrowed() const
+{
+    return Borrowed;
+}
 /** Display() shall return all information of book.
  *  Using const keyword to avoid the unintended changing.
 */
@@ -59,3 +73,5 @@ void Book::UpdateReturningBook()
     Number++;
     Borrowed--;
 }
+
+

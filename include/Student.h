@@ -22,6 +22,8 @@ public:
     virtual string GetUser() const;
     virtual string GetPass() const;
     virtual string GetName() const;
+    unsigned int GetBorrowedNum() const;
+    void SetBorrowedNum(unsigned int B);
     void BorrowingBook(const vector<Book>&, vector<Book>&);
     void ReturningBook(vector<Book>&);
     void PrintBorrowedBook();

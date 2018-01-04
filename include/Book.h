@@ -31,6 +31,9 @@ public:
     void DisplayForUser() const;
     string GetBookTitle() const;
     string GetBookAuthor() const;
+    string GetBookISBN() const;
+    unsigned int GetBookNumber() const;
+    unsigned int GetBookBorrowed() const;
     void UpdateBorrowingBook();
     void UpdateReturningBook();
     virtual ~Book();

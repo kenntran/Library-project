@@ -210,4 +210,12 @@ string Student::GetPass() const
 }
 
 
+unsigned int Student::GetBorrowedNum() const
+{
+    return Borrowed;
+}
 
+void Student::SetBorrowedNum(unsigned int B)
+{
+    this->Borrowed = B;
+}

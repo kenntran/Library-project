@@ -33,11 +33,12 @@ Role of Librarian and Student:
 ## Note: 
 	- Due to lack of time for this project:
 		- The Library project does not have full functions of a Library.
-		- The Library project does not have serialization function - it has to be reinitialize every time executing.
-		- The Library project does not have deserialization function - it would not save the changing for next time executing.
+		- The Library project has a simple serialization and deserialization. (Using Book.txt and Student.txt to import and export data).
+		- The Library project does not have serializationa and deserialization function for Borrowed Books of Student.
 		- The Library project does not use many STL libraries as expected. 
 		- The Library project still need to be improved with C++ technique.  
 		- The Library project uses mostly C programming techniques.
+
 		
 ## Demo:
 	- For demo purpose:

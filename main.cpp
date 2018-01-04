@@ -5,43 +5,56 @@
  *  Firstly, call initialization functions to initialize LibraryUser and LibraryBook. (due to lack of Serialization and Deserialization).
  *  Secondly, main() function shall call login for checking UserName and Password, then switching roles.
  *  Finally, main() shall execute in infinite while loop.
- *  Author: Nhut Tran
+ *  Create: Nhut Tran
  *  25/12/2017
  */
 
+
 #include <fstream>
+#include <cstring>
 #include <stdlib.h>
 #include "Person.h"
 #include "Student.h"
 #include "conio.h"
 #include "Librarian.h"
+#include <sstream>                      // To use istringstream
 
 
 static vector<Student> LibraryUser;
 static vector<Book> LibraryBook;
+static vector<Book> DemoBook;           //For demo deserialization purpose.
 unsigned int IsLibrarian;
 unsigned int OrderEle;                  //To specify the Student's object in LibraryUser vector
 
 void LibrarianTask();
-void StudentTask(Student& Task);        //StudentTask() shall take Student object as referenced
+void StudentTask(Student& Task);                    //StudentTask() shall take Student object as referenced
 void InitialzationBook(vector<Book>&);
 void InitialzationStudent(vector<Student>&);
-void Login(vector<Student>&);
-
+void Login(vector<Student>&);                       //Passing the Student vector to check the UserName, Password of all Student accounts in Library
+void SerializationBook(const vector<Book>&);        //To export all Books in Library to file
+void SerializationStudent(const vector<Student>&);  //To export all Students in Library to file
+void DeserializationBook(vector<Book>&);            //To import Books from file to Book vector
+void DeserializationStudent(vector<Student>&);      //To import Students from file to Student vector
 
 int main()
 {
-    InitialzationBook(LibraryBook);
-    InitialzationStudent(LibraryUser);
+    //InitialzationBook(LibraryBook);				//Don't need anymore because of having DeserializationBook()
+    //InitialzationStudent(LibraryUser);			//Don't need anymore because of having DeserializationStudent()
+
+    DeserializationBook(LibraryBook);
+    DeserializationStudent(LibraryUser);
 
     do
     {
+
         Login(LibraryUser);
-        if(IsLibrarian == 999)          //For demo purpose - this could be replace by char or string.
+        if(IsLibrarian == 999)                  //For demo purpose only - Instead of this, this condition could be replaced by char or string.
         {
             system("cls");
             LibrarianTask();
             system("cls");
+
+
         }
         else if(IsLibrarian == 111)
         {
@@ -51,6 +64,8 @@ int main()
         }
 
     }while(1);
+
+
     return 0;
 }
 
@@ -135,6 +150,7 @@ void LibrarianTask()
     int Selection = 0;
 
     Librarian lib;                                  //instance Librarian object
+
     do
     {
         cout << "********************************" << endl;
@@ -201,8 +217,13 @@ void LibrarianTask()
                 system("cls");
                 break;
         }
+
+        SerializationBook(LibraryBook);
+        SerializationStudent(LibraryUser);
     }
     while(Selection != 10);
+
+
 }
 
 /** StudentTask function shall be used by Student.
@@ -215,7 +236,6 @@ void LibrarianTask()
 void StudentTask(Student& StuTask)              //StudentTask() shall take referenced Student object as StuTask
 {
     int Selection = 0;
-    Librarian lib;
 
 
     do
@@ -273,7 +293,7 @@ void StudentTask(Student& StuTask)              //StudentTask() shall take refer
 }
 
 /** InitialzationBook function shall be used for initialize new book's objects and store into Book vector
- *  First, InitialzationBook() would call default constructor of Book and passing values, to creating new object.
+ *  First, InitialzationBook() would call default constructor of Book and passing values, to create new object.
  *  Then, the function shall use vector.push_back to add objects into Book vector.
  */
 void InitialzationBook(vector<Book>& newListBook)
@@ -297,8 +317,8 @@ void InitialzationBook(vector<Book>& newListBook)
 }
 
 /** InitialzationStudent function shall be used for initialize new student's objects and store into Student vector
- *  First, InitialzationStudent() would call default constructor of Student and passing values, to creating new object.
- *  Then, the function shall use vector.push_back to add objects into Book vector.
+ *  First, InitialzationStudent() would call default constructor of Student and passing values, to create new object.
+ *  Then, the function shall use vector.push_back to add objects into Student vector.
  */
 void InitialzationStudent(vector<Student>& newListStudent)
 {
@@ -317,4 +337,202 @@ void InitialzationStudent(vector<Student>& newListStudent)
 
 }
 
+/** SerializationBook function shall be used write data in Book vector to Book.txt file.
+ *  SerializationBook() shall open the file "Book.txt" and append the text file in Book.txt.
+ *  SerializationBook() shall take Book vector to write out data.
+ */
+void SerializationBook(const vector<Book>& Serialization)
+{
 
+    ofstream Outfile("Book.txt", std::ios_base::ate | std::ios_base::out | std::ios_base::trunc);
+    if(!Outfile.is_open())
+    {
+        cout << "error while opening file";
+    }
+    else
+    {
+        for(unsigned int i = 0; i < Serialization.size(); i++)
+        {
+            Outfile << Serialization[i].GetBookTitle() << "\t";
+            Outfile << Serialization[i].GetBookAuthor() << "\t";
+            Outfile << Serialization[i].GetBookISBN() << "\t";
+            Outfile << Serialization[i].GetBookNumber() << "\t";
+            Outfile << Serialization[i].GetBookBorrowed();
+            Outfile << "\n";
+        }
+    }
+    Outfile.close();
+
+}
+
+/** SerializationStudent() function shall be used write data in Student vector to Student.txt file.
+ *  SerializationStudent() shall open the file "Student.txt" and append the text file in Student.txt.
+ *  SerializationStudent() shall take Student vector to write out data.
+ */
+void SerializationStudent(const vector<Student>& Serialization)
+{
+
+    ofstream Outfile("Student.txt", std::ios_base::ate | std::ios_base::out | std::ios_base::trunc);
+    if(!Outfile.is_open())
+    {
+        cout << "error while opening file";
+    }
+    else
+    {
+        for(unsigned int i = 0; i < Serialization.size(); i++)
+        {
+            Outfile << Serialization[i].GetName() << "\t";
+            Outfile << Serialization[i].GetUser() << "\t";
+            Outfile << Serialization[i].GetPass() << "\t";
+            Outfile << Serialization[i].GetBorrowedNum()  << "\t";
+            Outfile << "\n";
+        }
+    }
+    Outfile.close();
+}
+
+
+/** DeserializationBook() function shall be used read data from Book.txt file and push_bach to Book vector. 
+ *  DeserializationBook() shall open the file "Book.txt".
+ *  DeserializationBook() shall read until the end of file.
+ *  DeserializationBook() shall get line by line by using getline(Inputfile,[a string]).
+ *  DeserializationBook() shall separate each line into strings by determine the "tab" delimiter in file ("\t"). 
+ *  DeserializationBook() shall copy those string to temporary strings and convert them to char.
+ *  DeserializationBook() shall create new objects with the constructor and those char value.
+ *  DeserializationBook() shall use vector.push_bash to add new object into Book's vector. 
+ *  DeserializationBook() shall take Book vector to add new data into it.
+ */
+void DeserializationBook(vector<Book>& Deserialization)
+{
+    string Title;
+    string Author;
+    string ISBN;
+    string Converting[100][100];
+    string GetLine;
+    unsigned int Number;
+    unsigned int Borrowed;
+
+    ifstream Inputfile("Book.txt",std::ios_base::in);               //Input file name: Book.txt
+    if(!Inputfile.is_open())
+    {
+        cout << "error while opening file" << endl;
+    }
+    else
+    {
+        while(!Inputfile.eof())                                     //To End Of File
+        {
+            for(int z = 0; getline(Inputfile, GetLine); z++ )       //For each line,
+            {
+                std::istringstream iss(GetLine);                   //iss takes the string from GetLine
+                std::string token;
+                for(int t = 0; getline(iss, token, '\t'); t++)      //to detect the \t in iss string - for each line + each string before "tab" delimiter
+                {
+                    Converting[z][t] = token;                       //To takes that string and store in Converting[z][t]
+                }
+            }
+        }
+    }
+
+    for(int x = 0; x < 10; x++ )
+    {
+        for(int y = 0; y < 10; y++)
+        {
+            if(Converting[x][0] != "")                  //Check the element in string array whether it is empty or not.
+            {
+                Title = Converting[x][0];
+                Author = Converting[x][1];
+                ISBN = Converting[x][2];
+                istringstream iss(Converting[x][3]);
+                iss >> Number;
+                istringstream iss1(Converting[x][4]);
+                iss1 >> Borrowed;
+
+                char TitleChr[Title.length()+1];
+                strcpy(TitleChr,Title.c_str());         //Convert the string of Title get from file to char to create new object of Book
+
+                char AuthorChr[Author.length()+1];
+                strcpy(AuthorChr,Author.c_str());       //Convert the string of Author get from file to char to create new object of Book
+
+                char ISBNChr[ISBN.length()+1];
+                strcpy(ISBNChr,ISBN.c_str());           //Convert the string of ISBN get from file to char to create new object of Book
+
+                Book deserialzBook(TitleChr,AuthorChr,Number,ISBNChr,Borrowed);
+                Deserialization.push_back(deserialzBook);
+                break;                                  //Only do this once. - break the for loop of y
+            }
+        }
+    }
+    Inputfile.close();
+}
+
+
+/** DeserializationStudent() function shall be used read data from Student.txt file and push_bach to Student vector. 
+ *  DeserializationStudent() shall open the file "Student.txt".
+ *  DeserializationStudent() shall read until the end of file.
+ *  DeserializationStudent() shall get line by line by using getline(Inputfile,[a string]).
+ *  DeserializationStudent() shall separate each line into strings by determine the "tab" delimiter in file ("\t"). 
+ *  DeserializationStudent() shall copy those string to temporary strings and convert them to char.
+ *  DeserializationStudent() shall create new objects with the constructor and those char value.
+ *  DeserializationStudent() shall use vector.push_bash to add new object into Student's vector. 
+ *  DeserializationStudent() shall take Student vector to add new data into it.
+ */
+void DeserializationStudent(vector<Student>& Deserialization)
+{
+    string Name;
+    string UserName;
+    string Password;
+    string Converting[100][100];
+    string GetLine;
+    unsigned int BorrowedNum;
+
+    ifstream Inputfile("Student.txt",std::ios_base::in);               //Input file name: Book.txt
+    if(!Inputfile.is_open())
+    {
+        cout << "error while opening file" << endl;
+    }
+    else
+    {
+        while(!Inputfile.eof())                                     //To End Of File
+        {
+            for(int z = 0; getline(Inputfile, GetLine); z++ )       //For each line,
+            {
+                std::istringstream iss(GetLine);                   //iss takes the string from GetLine
+                std::string token;
+                for(int t = 0; getline(iss, token, '\t'); t++)      //to detect the \t in iss string - for each line + each string before "tab" delimiter
+                {
+                    Converting[z][t] = token;                       //To takes that string and store in Converting[z][t]
+                }
+            }
+        }
+    }
+
+    for(int x = 0; x < 10; x++ )
+    {
+        for(int y = 0; y < 10; y++)
+        {
+            if(Converting[x][0] != "")                  //Check the element in string array whether it is empty or not.
+            {
+                Name = Converting[x][0];
+                UserName = Converting[x][1];
+                Password = Converting[x][2];
+                istringstream iss(Converting[x][3]);
+                iss >> BorrowedNum;
+
+                char NameChr[Name.length()+1];
+                strcpy(NameChr,Name.c_str());         //Convert the string of Title get from file to char to create new object of Book
+
+                char UserNameChr[UserName.length()+1];
+                strcpy(UserNameChr,UserName.c_str());       //Convert the string of Author get from file to char to create new object of Book
+
+                char PasswordChr[Password.length()+1];
+                strcpy(PasswordChr,Password.c_str());           //Convert the string of ISBN get from file to char to create new object of Book
+
+                Student deserialzStudent(NameChr,UserNameChr,PasswordChr);
+                deserialzStudent.SetBorrowedNum(BorrowedNum);
+                Deserialization.push_back(deserialzStudent);
+                break;                                  //Only do this once. - break the for loop of y
+            }
+        }
+    }
+    Inputfile.close();
+}
