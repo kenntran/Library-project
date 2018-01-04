@@ -54,7 +54,7 @@ Role of Librarian and Student:
 		- Go to your MinGW folder (should be C:\MinGW)
 		- Open the bin folder.
 		- There should be a file called libstdc++-6.dll
-		- Copy this into the same directory as your executable. 
+		- Copy this into the same directory as your executable.
 
 	- If you get the error about "error while opening file", you should:
-		- Copying Student.txt and Book.txt to same directory as executed file.
+		- Copy Student.txt and Book.txt to same directory as executed file.
