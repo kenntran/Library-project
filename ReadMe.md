@@ -49,3 +49,12 @@ Role of Librarian and Student:
 			- ID: timo007	- 	Password: 123
 			- ID: abbott119	-	Password: 123
 			
+## Error when opening executed file:
+	- If you get the error about "the procedure entry point __gxx_personality_v0 could not be located...". You should:
+		- Go to your MinGW folder (should be C:\MinGW)
+		- Open the bin folder.
+		- There should be a file called libstdc++-6.dll
+		- Copy this into the same directory as your executable. 
+
+	- If you get the error about "error while opening file", you should:
+		- Copying Student.txt and Book.txt to same directory as executed file.
