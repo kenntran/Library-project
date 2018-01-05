@@ -288,6 +288,8 @@ void StudentTask(Student& StuTask)              //StudentTask() shall take refer
                 system("cls");
                 break;
         }
+        SerializationBook(LibraryBook);
+        SerializationStudent(LibraryUser);
     }
     while(Selection != 7);
 }
@@ -392,14 +394,14 @@ void SerializationStudent(const vector<Student>& Serialization)
 }
 
 
-/** DeserializationBook() function shall be used read data from Book.txt file and push_bach to Book vector. 
+/** DeserializationBook() function shall be used read data from Book.txt file and push_bach to Book vector.
  *  DeserializationBook() shall open the file "Book.txt".
  *  DeserializationBook() shall read until the end of file.
  *  DeserializationBook() shall get line by line by using getline(Inputfile,[a string]).
- *  DeserializationBook() shall separate each line into strings by determine the "tab" delimiter in file ("\t"). 
+ *  DeserializationBook() shall separate each line into strings by determine the "tab" delimiter in file ("\t").
  *  DeserializationBook() shall copy those string to temporary strings and convert them to char.
  *  DeserializationBook() shall create new objects with the constructor and those char value.
- *  DeserializationBook() shall use vector.push_bash to add new object into Book's vector. 
+ *  DeserializationBook() shall use vector.push_bash to add new object into Book's vector.
  *  DeserializationBook() shall take Book vector to add new data into it.
  */
 void DeserializationBook(vector<Book>& Deserialization)
@@ -466,14 +468,14 @@ void DeserializationBook(vector<Book>& Deserialization)
 }
 
 
-/** DeserializationStudent() function shall be used read data from Student.txt file and push_bach to Student vector. 
+/** DeserializationStudent() function shall be used read data from Student.txt file and push_bach to Student vector.
  *  DeserializationStudent() shall open the file "Student.txt".
  *  DeserializationStudent() shall read until the end of file.
  *  DeserializationStudent() shall get line by line by using getline(Inputfile,[a string]).
- *  DeserializationStudent() shall separate each line into strings by determine the "tab" delimiter in file ("\t"). 
+ *  DeserializationStudent() shall separate each line into strings by determine the "tab" delimiter in file ("\t").
  *  DeserializationStudent() shall copy those string to temporary strings and convert them to char.
  *  DeserializationStudent() shall create new objects with the constructor and those char value.
- *  DeserializationStudent() shall use vector.push_bash to add new object into Student's vector. 
+ *  DeserializationStudent() shall use vector.push_bash to add new object into Student's vector.
  *  DeserializationStudent() shall take Student vector to add new data into it.
  */
 void DeserializationStudent(vector<Student>& Deserialization)
