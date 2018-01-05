@@ -57,4 +57,4 @@ Role of Librarian and Student:
 		- Copy this into the same directory as your executable.
 
 	- If you get the error about "error while opening file", you should:
-		- Copy Student.txt and Book.txt to same directory as executed file.
+		- Copy Student.txt and Book.txt to same directory as executable file.
