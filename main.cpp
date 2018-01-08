@@ -104,7 +104,7 @@ void Login(vector<Student>& LoginStudent)
             cin.ignore();
         }
     }
-    else if(Lib.GetPass() != InPasswd)
+    else if(Lib.GetUser() != InUserName)
     {
         for(unsigned int i = 0;i < LoginStudent.size(); i++)
         {
