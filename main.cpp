@@ -22,7 +22,6 @@
 
 static vector<Student> LibraryUser;
 static vector<Book> LibraryBook;
-static vector<Book> DemoBook;           //For demo deserialization purpose.
 unsigned int IsLibrarian;
 unsigned int OrderEle;                  //To specify the Student's object in LibraryUser vector
 
@@ -35,11 +34,12 @@ void SerializationBook(const vector<Book>&);        //To export all Books in Lib
 void SerializationStudent(const vector<Student>&);  //To export all Students in Library to file
 void DeserializationBook(vector<Book>&);            //To import Books from file to Book vector
 void DeserializationStudent(vector<Student>&);      //To import Students from file to Student vector
+void DeserializationBorrowedBook(Student& SpeStudent, string filename);
 
 int main()
 {
-    //InitialzationBook(LibraryBook);				//Don't need anymore because of having DeserializationBook()
-    //InitialzationStudent(LibraryUser);			//Don't need anymore because of having DeserializationStudent()
+    //InitialzationBook(LibraryBook);
+    //InitialzationStudent(LibraryUser);
 
     DeserializationBook(LibraryBook);
     DeserializationStudent(LibraryUser);
@@ -104,7 +104,7 @@ void Login(vector<Student>& LoginStudent)
             cin.ignore();
         }
     }
-    else if(Lib.GetUser() != InUserName)
+    else if(Lib.GetPass() != InPasswd)
     {
         for(unsigned int i = 0;i < LoginStudent.size(); i++)
         {
@@ -288,8 +288,8 @@ void StudentTask(Student& StuTask)              //StudentTask() shall take refer
                 system("cls");
                 break;
         }
-        SerializationBook(LibraryBook);
-        SerializationStudent(LibraryUser);
+    SerializationBook(LibraryBook);
+    SerializationStudent(LibraryUser);
     }
     while(Selection != 7);
 }
@@ -346,7 +346,7 @@ void InitialzationStudent(vector<Student>& newListStudent)
 void SerializationBook(const vector<Book>& Serialization)
 {
 
-    ofstream Outfile("Book.txt", std::ios_base::ate | std::ios_base::out | std::ios_base::trunc);
+    ofstream Outfile("Book.txt", std::ios_base::ate | std::ios_base::out | std::ios_base::trunc); //write out to File - append and truncate the old data.
     if(!Outfile.is_open())
     {
         cout << "error while opening file";
@@ -388,6 +388,14 @@ void SerializationStudent(const vector<Student>& Serialization)
             Outfile << Serialization[i].GetPass() << "\t";
             Outfile << Serialization[i].GetBorrowedNum()  << "\t";
             Outfile << "\n";
+
+            /*
+            stringstream ss;
+            ss << i;
+            string filename = "BorrowedBook" + to_string(i) + ".txt";
+
+            SerializationBorrowedBook(LibraryUser[i],filename);
+            */
         }
     }
     Outfile.close();
@@ -521,10 +529,10 @@ void DeserializationStudent(vector<Student>& Deserialization)
                 iss >> BorrowedNum;
 
                 char NameChr[Name.length()+1];
-                strcpy(NameChr,Name.c_str());         //Convert the string of Title get from file to char to create new object of Book
+                strcpy(NameChr,Name.c_str());                   //Convert the string of Title get from file to char to create new object of Book
 
                 char UserNameChr[UserName.length()+1];
-                strcpy(UserNameChr,UserName.c_str());       //Convert the string of Author get from file to char to create new object of Book
+                strcpy(UserNameChr,UserName.c_str());           //Convert the string of Author get from file to char to create new object of Book
 
                 char PasswordChr[Password.length()+1];
                 strcpy(PasswordChr,Password.c_str());           //Convert the string of ISBN get from file to char to create new object of Book
@@ -532,9 +540,39 @@ void DeserializationStudent(vector<Student>& Deserialization)
                 Student deserialzStudent(NameChr,UserNameChr,PasswordChr);
                 deserialzStudent.SetBorrowedNum(BorrowedNum);
                 Deserialization.push_back(deserialzStudent);
-                break;                                  //Only do this once. - break the for loop of y
+                break;                                          //Only do this once. - break the for loop of y
             }
         }
     }
     Inputfile.close();
 }
+
+
+/*
+void SerializationBorrowedBook(Student& SpeStudent,filename)
+{
+    ofstream Borrowedfile(filename, std::ios_base::ate | std::ios_base::out | std::ios_base::trunc);
+    if(!Outfile.is_open())
+    {
+        cout << "error while opening file";
+    }
+    else
+    {
+        for(unsigned int i = 0; i < SpeStudent.GetBorrowedBook().size(); i++)
+        {
+            Borrowedfile << SpeStudent.GetBorrowedBook()[i].GetBookTitle() << "\t";
+            Borrowedfile << SpeStudent.GetBorrowedBook()[i].GetBookAuthor() << "\t";
+            Borrowedfile << SpeStudent.GetBorrowedBook()[i].GetBookISBN() << "\t";
+            Borrowedfile << endl;
+        }
+    }
+}
+
+
+
+void DeserializationBorrowedBook(Student& SpeStudent)
+{
+
+}
+
+*/
