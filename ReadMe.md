@@ -1,6 +1,6 @@
 # Library project
 
-Free-time project 
+Spare-time project 
 25/12/2017
 
 ## Description
